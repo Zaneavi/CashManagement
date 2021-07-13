@@ -1,0 +1,88 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="">
+    <meta name="twitter:creator" content="">
+    <meta name="twitter:card" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+
+    <meta property="og:image" content="">
+    <meta property="og:image:secure_url" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <!-- vendor css -->
+    <link href="/AdminAssets/css/font-awesome.css" rel="stylesheet">
+    <link href="/AdminAssets/css/ionicons.css" rel="stylesheet">
+
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="/AdminAssets/css/base.css">
+    <link rel="stylesheet" href="/AdminAssets/css/custom.css">
+</head>
+
+<body>
+
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+
+      
+
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @id = "loginform", enctype = "multipart/form-data" }))
+        {
+            @*<form action="/AdminLogin" method="post">*@
+            <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+               
+                <div class="signin-logo tx-center tx-24 tx-bold tx-inverse"><span class="tx-info tx-normal">Cash Management</span></div>
+                <div class="tx-center mg-b-60"><h6>Login</h6></div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Enter your email" required name="Emailid">
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter your password" required name="Password">
+                    <a href="#" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
+                </div><!-- form-group -->
+                <button type="submit" class="btn btn-info btn-block">Sign In</button>
+            </div>
+            @*</form>*@
+        }
+    </div>
+
+    <script src="/AdminAssets/lib/jquery/jquery.js"></script>
+    <script src="/AdminAssets/lib/popper.js/popper.js"></script>
+    <script src="/AdminAssets/lib/bootstrap/bootstrap.js"></script>
+
+</body>
+
+
+</html>

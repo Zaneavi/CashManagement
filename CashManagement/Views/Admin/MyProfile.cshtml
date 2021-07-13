@@ -1,0 +1,100 @@
+﻿@model CashManagement.Models.AdminLogin
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+    <div class="sl-mainpanel">
+        <nav class="breadcrumb sl-breadcrumb">
+            <a class="breadcrumb-item" href="/Admin">Home</a>
+            
+            <span class="breadcrumb-item active">User Profile</span>
+        </nav>
+
+        <div class="sl-pagebody">
+            <div class="sl-page-title">
+                <h5>User Profile</h5>
+                <p>Place where you can update your details.</p>
+            </div><!-- sl-page-title -->
+
+            <div class="card pd-20 pd-sm-40">
+                <h6 class="card-body-title">Update Profile Data</h6>
+                <p class="mg-b-20 mg-sm-b-30">Please update required fields.</p>
+
+                <div class="form-layout">
+
+@using (Html.BeginForm("MyProfile", "Admin", FormMethod.Post, new { @class = "form -sample", enctype = "multipart/form-data" }))
+{
+
+
+                    <div class="row mg-b-25">
+                        @Html.HiddenFor(model => model.AdminId)
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label">First Name: <span class="tx-danger">*</span></label>
+                                @Html.TextBoxFor(model => model.FullName, new { @placeholder = "Full Name", @required = "required", @class = "form-control", @type = "text", @maxlength = "100" })
+                            </div>
+                        </div><!-- col-6 -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Email Address: <span class="tx-danger">*</span></label>
+                                @Html.TextBoxFor(model => model.EmailId, new { @placeholder = "Email", @required = "required", @class = "form-control", @type = "Email", @maxlength = "100" })
+                            </div>
+                        </div><!-- col-6 -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Password: <span class="tx-danger">*</span></label>
+                                <input type="password" name="Password" id="password-field" placeholder="Enter the password" class="form-control" value="@Model.Password" required />
+                                <span toggle="#password-field" class="toggle-password"><img src="//cdn.shopify.com/s/files/1/0567/3873/t/71/assets/eye-new-icon.png?v=4426268401791860133" alt="eye icon"></span>
+                            </div>
+                        </div><!-- col-6 -->
+                        <div class="col-lg-6">
+                            <div class="form-group mg-b-10-force">
+                              
+                                    <label class="form-control-label">Mobile No: <span class="tx-danger">*</span></label>
+                                    @Html.TextBoxFor(model => model.PhoneNo, new { @placeholder = "Mobile No", @required = "required", @class = "form-control", @type = "number", @maxlength = "100" })
+                               
+                            </div>
+                        </div><!-- col-6 -->
+                     
+                    </div><!-- row -->
+
+                    <div class="form-layout-footer">
+                        <button class="btn btn-info mg-r-5">Update</button>
+                        
+                    </div><!-- form-layout-footer -->
+
+}
+
+                </div><!-- form-layout -->
+            </div><!-- card -->
+
+            <!-- row -->
+
+         
+
+        </div><!-- sl-pagebody -->
+        <footer class="sl-footer">
+            <div class="footer-left">
+                <div class="mg-b-2">Copyright &copy; 2021. All Rights Reserved.</div>
+            </div>
+        </footer>
+    </div><!-- sl-mainpanel -->
+    <!-- ########## END: MAIN PANEL ########## -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>

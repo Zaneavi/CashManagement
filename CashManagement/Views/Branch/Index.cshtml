@@ -1,0 +1,329 @@
+﻿@model CashManagement.Models.Branch
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="sl-mainpanel">
+    <nav class="breadcrumb sl-breadcrumb">
+        <a class="breadcrumb-item" href="/Admin">Home</a>
+        @*<a class="breadcrumb-item" href="index.html">Tables</a>*@
+        <span class="breadcrumb-item active">Branch</span>
+    </nav>
+
+    <div class="sl-pagebody">
+        <div class="sl-page-title">
+            <h5>Branch Details</h5>
+            <p>List of all added branches.</p>
+        </div><!-- sl-page-title -->
+
+        <div class="card pd-20 pd-sm-40 mg-t-25">
+            <h6 class="card-body-title mg-sm-b-10">Add Branch</h6>
+            <p class="lead pd-15 bg-primary tx-white mg-b-0 add-branch-click-text"> <a data-toggle="modal" data-target="#AddBranch" href="#!">Please click here to add branch</a></p>
+            
+        </div>
+
+        <div class="card pd-20 pd-sm-40 mg-t-25">
+
+            <h6 class="card-body-title">All Branches</h6>
+            <p class="mg-b-20 mg-sm-b-30">Search branch using search filter </p>
+
+
+    
+
+
+
+
+
+            
+            <div class="table-wrapper branch-table">
+                <table id="datatable1" class="table display responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th class="wd-15p">Branch Name</th>
+                            <th class="wd-15p">Location</th>
+                            <th class="wd-20p">Email Id</th>
+                            <th class="wd-15p">Registered On</th>
+                            <th class="wd-10p">Status</th>
+                            <th class="wd-10p">Edit</th>
+                            <th class="wd-10p">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @if (ViewBag.BranchList != null)
+                      {
+                          foreach (var i in ViewBag.BranchList)
+                          {
+                            <tr>
+                                <td>@i.BranchName</td>
+                                <td>@i.Location</td>
+                                <td>@i.Emailid</td>
+                                <td>@i.RegisteredOn</td>
+                                @if (i.IsActive == "True")
+                                {
+                                    <td><a href="javascript:void(0)" onclick="ChngStatus('@i.BranchId','@i.IsActive')" class="btn btn-teal">Active</a></td>
+                                }
+                                else
+                                {
+                                    <td><a href="javascript:void(0)" onclick="ChngStatus('@i.BranchId','@i.IsActive')" class="btn btn-danger">Inactive</a></td>
+                                }
+
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="Edit('@i.BranchId')">Edit</a>
+                                </td>
+
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="Delete('@i.BranchId')" class="btn btn-danger btn-xs">
+                                        Delete
+                                    </a>
+                                </td>
+
+
+                            </tr>
+                          }
+                      }
+                       
+                       
+                    
+                    </tbody>
+                </table>
+            </div><!-- table-wrapper -->
+        </div><!-- card -->
+
+     
+
+    </div><!-- sl-pagebody -->
+    <footer class="sl-footer">
+        <div class="footer-left">
+            <div class="mg-b-2">Copyright &copy; 2021. All Rights Reserved.</div>
+        </div>
+    </footer>
+</div><!-- sl-mainpanel -->
+<!-- ########## END: MAIN PANEL ########## -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*Template modal*@
+
+<div id="AddBranch" class="modal fade">
+    <div class="modal-dialog modal-dialog-vertical-center" role="document">
+        <div class="modal-content bd-0 tx-14">
+
+@using (Html.BeginForm("InsertBranch", "Branch", FormMethod.Post, new { @class = "form -sample", enctype = "multipart/form-data" }))
+{
+
+
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Branch</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-25">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Branch Name *
+                        </label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.BranchName, new { @placeholder = "", @class = "form-control", @type = "text", @required = "required", @rows = "10" })
+                            @*<textarea name="Text1" rows="4" cols="50"></textarea>*@
+                        </div>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Location *
+                        </label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Location, new { @placeholder = "", @class = "form-control", @type = "text", @required = "required", @rows = "10" })
+                            @*<textarea name="Text2" rows="4" cols="50"></textarea>*@
+                        </div>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>
+                            Email Id *
+                        </label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.Emailid, new { @placeholder = "", @class = "form-control", @type = "Email", @required = "required", @rows = "10" })
+                            @*<textarea name="Text3" rows="4" cols="50"></textarea>*@
+                        </div>
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-info pd-x-20">Add</button>
+                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
+            </div>
+
+}
+
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
+
+
+<div id="EditModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-vertical-center" role="document">
+        <div class="modal-content bd-0 tx-14">
+
+          @using (Html.BeginForm("InsertBranch", "Branch", FormMethod.Post, new { @class = "form-sample", enctype = "multipart/form-data" }))
+          {
+
+
+                <div class="modal-header pd-y-20 pd-x-25">
+                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Update</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pd-25">
+                    @Html.HiddenFor(model => model.BranchId, new { @id = "branchId" })
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Branch Name *
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.BranchName, new { @placeholder = "Blog Title", @class = "form-control", @required = "required", @id = "branchName" })
+                                @*<textarea name="Text1" rows="4" cols="50"></textarea>*@
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Location *
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Location, new { @placeholder = "Second Content", @required = "required", @class = "form-control", @rows = "5", @id = "location" })
+                                @*<textarea name="Text2" rows="4" cols="50"></textarea>*@
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Email Id *
+                            </label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Emailid, new { @placeholder = "Third Content", @required = "required", @class = "form-control", @rows = "5", @id = "emailid" })
+                                @*<textarea name="Text3" rows="4" cols="50"></textarea>*@
+                            </div>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info pd-x-20">Update</button>
+                    <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
+                </div>
+
+            }
+
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function holdModal(modalId) {
+        $('#' + modalId).modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    }
+
+    function Edit(id) {
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            url: '/Branch/getbranch',
+            data: { id: id },
+            success: function (data) {
+                $("#branchId").val(data.BranchId);
+                $("#branchName").val(data.BranchName);
+                $("#location").val(data.Location);
+                $("#emailid").val(data.Emailid);
+                holdModal('EditModal');
+            }
+        });
+    }
+
+
+
+
+    function ChngStatus(id, status) {
+        $.getJSON('/Branch/BranchStatus/', { id: id, status: status }, function (data) {
+            location.reload();
+        });
+    }
+
+    function Delete(id) {
+        var result = confirm("Are you sure want to delete?");
+        if (result) {
+            $.getJSON('/Branch/DeleteBranch/', { id: id }, function (data) {
+                location.reload();
+            });
+        }
+    }
+</script>
+
+
+<script>
+
+    $('#datatable1').DataTable({
+        responsive: true,
+        language: {
+            searchPlaceholder: 'Search...',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+        }
+    });
+
+
+</script>
